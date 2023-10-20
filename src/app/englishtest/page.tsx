@@ -34,6 +34,14 @@ export default function Page(){
       }
     }, [router]);
 
+
+    // you can only take the english test once youve taken the career assessment
+    useEffect(() => {    
+        if (!localStorage.getItem('career')) {
+            router.push('/assessment');
+            return;
+      }});
+
     return(
         <div className='p-4 flex flex-col items-center h-screen'>
             <h5 className='text-3xl font-bold p-2'>English Assesment</h5>
