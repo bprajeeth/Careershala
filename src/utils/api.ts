@@ -409,4 +409,8 @@ export const API = {
     submit: (answers: { answers: number[] }) =>
       request(`career`, 'POST', answers),
   },
+  englishtest: {
+    submit: (answers: { answers: string }) =>
+      request(`englishtest`, 'POST', answers),
+  }
 };

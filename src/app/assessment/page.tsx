@@ -138,7 +138,7 @@ const QuestionsComponent = () => {
         console.log(data);
         setLoading(false);
         localStorage.setItem('career', JSON.stringify(data));
-        router.push('/result');
+        router.push('/englishtest');
       },
       onError: (error) => {
         setLoading(false);
@@ -149,7 +149,7 @@ const QuestionsComponent = () => {
 
   useEffect(() => {
     if (localStorage.getItem('career')) {
-      router.push('/result');
+      router.push('/englishtest');
     }
   }, [router]);
 

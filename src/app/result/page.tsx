@@ -14,6 +14,8 @@ export default function Page() {
     response: '',
   });
 
+  const [englishAnswer, setEnglishAnswer] = useState("")
+
   const projectsQuery = useQuery(['projects'], () => API.projects.list());
   const router = useRouter();
 
@@ -24,7 +26,29 @@ export default function Page() {
     }
     const answers = JSON.parse(localStorage.getItem('career') || '');
     setResult(answers);
+
+
+
   }, []);
+
+  useEffect(() => {
+    if (!localStorage.getItem('englishtest')) {
+      router.push('/englishtest');
+      return;
+    }
+    const englishTestResult = JSON.parse(localStorage.getItem('englishtest') || '');
+    setEnglishAnswer(englishTestResult.response);
+
+}, []);
+  // if(!localStorage.getItem('englishtest')){
+  //   router.push('/englishtest');
+  //   return
+  // }
+
+  // const englishTestResult = JSON.parse(localStorage.getItem('englishtest') || '');
+  // setEnglishAnswer(englishTestResult);
+  // console.log("checking = ", englishTestResult)
+
   return (
     <div className="h-screen p-10">
       <h1 className="text-3xl font-bold mb-4">Result</h1>
@@ -33,14 +57,20 @@ export default function Page() {
         <span className="font-bold">{result.personality}</span>
       </p>
       <p>You should consider the following jobs:</p>
-      <ul className="list-disc ml-10 mb-4">
+      <ul className="list-disc ml-10 mb-2">
         {result.jobs.map((job: string) => (
-          <li key={job}>{job}</li>
+          <li className="font-bold" key={job}>{job}</li>
         ))}
       </ul>
       <div className="prose">
         <ReactMarkdown>{result.response}</ReactMarkdown>
       </div>
+
+      <div className='mt-4'>
+        <h2 className="text-2xl font-bold mb-1">Your English test results</h2>
+        <p>{englishAnswer}</p>
+      </div>
+
       <Button
         className="mt-5"
         onClick={() => {
